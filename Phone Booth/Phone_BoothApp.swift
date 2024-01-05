@@ -20,4 +20,9 @@ struct Phone_BoothApp: App {
                 .environmentObject(photoViewModel)
         }
     }
+    
+    init() {
+        ValueTransformer.setValueTransformer(Color.NamedColorTransformer(), forName:NSValueTransformerName("NamedColorTransformer"))
+
+    }
 }

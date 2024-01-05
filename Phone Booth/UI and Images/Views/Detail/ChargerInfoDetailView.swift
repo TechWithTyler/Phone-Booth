@@ -21,9 +21,9 @@ struct ChargerInfoDetailView: View {
 		if let phone = charger.phone {
 			Form {
 				Section {
-					ColorPicker("Main Color", selection: charger.mainColorBinding)
+                    ListColorPicker("Main Color", colors: Phone.phoneColors, selection: $charger.mainColorName)
                     HStack {
-                        ColorPicker("Secondary/Accent Color", selection: charger.secondaryColorBinding)
+                        ListColorPicker("Secondary/Accent Color", colors: Phone.phoneColors, selection: $charger.secondaryColorName)
                         Button("Use Main Color") {
                             charger.setSecondaryColorToMain()
                         }

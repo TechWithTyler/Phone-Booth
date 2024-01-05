@@ -6,6 +6,7 @@
 //  Copyright © 2023-2024 SheftApps. All rights reserved.
 //
 
+import SheftAppsStylishUI
 import SwiftUI
 import SwiftData
 
@@ -17,18 +18,10 @@ final class Charger {
 	var phone: Phone?
     
     var id = UUID()
-
-    var mainColorRed: Double = 0
     
-    var mainColorGreen: Double = 0
+    @Attribute(.transformable(by: Color.NamedColorTransformer.self)) var mainColorName: Color.Named
     
-    var mainColorBlue: Double = 0
-    
-    var secondaryColorRed: Double = 0
-    
-    var secondaryColorGreen: Double = 0
-    
-    var secondaryColorBlue: Double = 0
+    @Attribute(.transformable(by: Color.NamedColorTransformer.self)) var secondaryColorName: Color.Named
 
 	var chargingDirection: Int = 0
 
@@ -40,48 +33,17 @@ final class Charger {
 
 	var wallMountability: Int = 0
     
-    // MARK: - Color Bindings
-    
-    var mainColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: mainColorRed, green: mainColorGreen, blue: mainColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            mainColorRed = components.red
-            mainColorGreen = components.green
-            mainColorBlue = components.blue
-        }
-    }
-    
-    var secondaryColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: secondaryColorRed, green: secondaryColorGreen, blue: secondaryColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            secondaryColorRed = components.red
-            secondaryColorGreen = components.green
-            secondaryColorBlue = components.blue
-        }
-    }
-    
     // MARK: - Initialization
 
 	init() {
-		self.mainColorRed = 0
-        self.mainColorGreen = 0
-        self.mainColorBlue = 0
-        self.secondaryColorRed = 0
-        self.secondaryColorGreen = 0
-        self.secondaryColorBlue = 0
+        self.mainColorName = .black
+        self.secondaryColorName = .black
 	}
     
     // MARK: - Set Secondary Color to Main
     
     func setSecondaryColorToMain() {
-        let components = mainColorBinding.wrappedValue.components
-        secondaryColorRed = components.red
-        secondaryColorGreen = components.green
-        secondaryColorBlue = components.blue
+        secondaryColorName = mainColorName
     }
 
 }

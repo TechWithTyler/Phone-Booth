@@ -25,6 +25,8 @@ struct PhoneDetailView: View {
     
     @State private var showingPhoneTypeDefinitions: Bool = false
     
+    @State private var selectedColor: Color.Named = .red
+    
     // MARK: - Body
     
     var body: some View {
@@ -373,13 +375,13 @@ struct PhoneDetailView: View {
                             phone.baseDisplayTypeChanged(oldValue: oldValue, newValue: newValue)
                         }
                         if phone.baseDisplayType > 2 && phone.baseDisplayType < 6 {
-                            ColorPicker("Base Display Backlight Color", selection: phone.baseDisplayBacklightColorBinding)
+                            ListColorPicker("Base Display Backlight Color", colors: Phone.backlightColors, selection: $phone.baseDisplayBacklightColorName)
                         }
                         if phone.baseDisplayType >= 3 {
                             Toggle("Base Has LED Message Counter In Addition To Display", isOn: $phone.baseHasDisplayAndMessageCounter)
                         }
                         if phone.baseDisplayType == 1 || phone.baseHasDisplayAndMessageCounter {
-                            ClearSupportedColorPicker("LED Message Counter Color", selection: phone.baseLEDMessageCounterColorBinding)
+                            ListColorPicker("LED Message Counter Color", colors: Phone.backlightColors, selection: $phone.baseLEDMessageCounterColorName)
                         }
                         if phone.baseDisplayType > 0 {
                             Picker("Base Navigation Button Type", selection: $phone.baseNavigatorKeyType) {
@@ -430,10 +432,10 @@ struct PhoneDetailView: View {
                             Text("All Buttons").tag(3)
                         }
                         if phone.baseKeyBacklightAmount > 0 {
-                            ColorPicker("Button Backlight Color", selection: phone.baseKeyBacklightColorBinding)
+                            ListColorPicker("Button Backlight Color", colors: Phone.backlightColors, selection: $phone.baseKeyBacklightColorName)
                         }
-                        ColorPicker("Button Foreground Color", selection: phone.baseKeyForegroundColorBinding)
-                        ColorPicker("Button Background Color", selection: phone.baseKeyBackgroundColorBinding)
+                        ListColorPicker("Button Foreground Color", colors: Phone.phoneColors, selection: $phone.baseKeyForegroundColorName)
+                        ListColorPicker("Button Background Color", colors: Phone.phoneColors, selection: $phone.baseKeyBackgroundColorName)
                     }
                     Section(header: Text("Answering System/Voicemail")) {
                         Picker("Answering System", selection: $phone.hasAnsweringSystem) {
